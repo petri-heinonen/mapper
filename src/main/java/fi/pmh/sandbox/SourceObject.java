@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 public class SourceObject
 {
-    private BigDecimal attribute1;
-    private BigDecimal attribute2;
+    private String currency;
+    private BigDecimal value;
 }
