@@ -8,7 +8,7 @@ public class CustomMapper {
         return new Money("EUR", value.toPlainString(), value.toPlainString());
     }
  
-    public static <T> T map(Object source, T target) {
+    public static <S,T> T map(S source, T target) {
         Field[] sourceFields = source.getClass().getDeclaredFields();
         Field[] targetFields = target.getClass().getDeclaredFields();
  

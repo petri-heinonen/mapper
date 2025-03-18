@@ -7,7 +7,7 @@ import org.mapstruct.factory.Mappers;
 public interface MyMapper {
     MyMapper INSTANCE = Mappers.getMapper(MyMapper.class);
  
-    default <T> T map(Object source, T target) {
+    default <S, T> T map(S source, T target) {
         return CustomMapper.map(source, target);
     }
 }
