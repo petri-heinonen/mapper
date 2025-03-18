@@ -21,17 +21,18 @@ public class CustomMapper {
                 BigDecimal value = (BigDecimal) valueField.get(source);
                 String currency = (String) currencyField.get(source);
 
-                for (Field targetField : targetFields) {
-                    if (targetField.getName().equals("currencyCode") && targetField.getType().equals(String.class)) {
-                        targetField.set(target, currency);
-                    }
-                    else if (targetField.getName().equals("value") && targetField.getType().equals(String.class)) {
-                        targetField.set(target, value.toPlainString());
-                    }
-                    else if (targetField.getName().equals("eurValue") && targetField.getType().equals(String.class)) {
-                        targetField.set(target, value.toPlainString());
-                    }
-                }
+                Arrays.stream(targetFields).filter(field -> field.getType().equals(String.class))
+                    .forEach(targetField -> {
+                        try {
+                            if (targetField.getName().equals("currencyCode")) {
+                                targetField.set(target, currency);
+                            } else if (targetField.getName().equals("value") || targetField.getName().equals("eurValue")) {
+                                targetField.set(target, value.toPlainString());
+                            }
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        }
+                    });
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
